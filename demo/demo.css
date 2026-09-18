@@ -367,6 +367,17 @@ h3 {
   font-size: 14px;
 }
 
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 14px;
+  margin: 6px 4px 0;
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.72;
+}
+
 /* ---------------------------------------------------------------- sections */
 
 .section {

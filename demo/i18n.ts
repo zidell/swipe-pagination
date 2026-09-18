@@ -20,6 +20,9 @@ const KO: Record<string, string> = {
   'hero.title': '<em>스와이프</em> 페이지네이션',
   'hero.lead':
     '모바일에 최적화된 반응형 페이지네이션입니다. 전통적인 페이지네이션의 문제인 직관성과 여러 번의 중복 클릭을 개선하여 사용자 경험을 향상시키기 위해 제작되었습니다.',
+  'hero.page': '<strong id="hero-page">1,234</strong> / 5,000 페이지',
+  'hero.dom': 'DOM 노드 <strong id="hero-dom">–</strong>개',
+  'hero.range': '<strong id="hero-range">–</strong> 표시 중',
   'hero.hint':
     '숫자를 스와이프하거나 끌어서 스크롤하고, 화살표를 눌러 보세요(빠르게 연타도 해 보세요). Tab으로 들어가 ← → Home End로도 움직일 수 있습니다.',
   'why.title': '만든 이유',
