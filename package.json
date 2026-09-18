@@ -1,6 +1,6 @@
 {
   "name": "swipe-pagination",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A responsive, swipeable pagination strip. Thousands of pages, only the visible ones rendered. Vanilla core with React, Vue and Svelte components.",
   "keywords": [
     "pagination",
