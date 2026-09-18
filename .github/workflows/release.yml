@@ -14,7 +14,9 @@ on:
 
 concurrency:
   group: release
-  cancel-in-progress: false
+  # A later tag/dispatch represents the newer site.  Without cancellation an
+  # older queued release can finish last and overwrite the Pages deployment.
+  cancel-in-progress: true
 
 jobs:
   verify:
