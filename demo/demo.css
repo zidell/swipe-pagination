@@ -232,7 +232,7 @@ h3 {
 /* ---------------------------------------------------------------- hero */
 
 .hero {
-  padding-block: 64px 24px;
+  padding-block: 88px 72px;
 }
 
 .eyebrow {
@@ -300,7 +300,7 @@ h3 {
 
 .stage-hero {
   margin-top: 40px;
-  padding: clamp(20px, 5vw, 40px);
+  padding: clamp(44px, 8vw, 72px) clamp(20px, 5vw, 40px);
   border-radius: 22px;
   /* A busy background on purpose: the edge fade is a mask, not a painted gradient. */
   background:
@@ -358,26 +358,6 @@ h3 {
   :root:not([data-theme='light']) .hero-strip .swipe-pagination {
     --sp-active-bg: #f5f3ff;
     --sp-active-color: #1e1b4b;
-  }
-}
-
-.hero-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 24px;
-  margin-top: 20px;
-  color: #312e81;
-  font-size: 14px;
-  font-variant-numeric: tabular-nums;
-}
-
-:root[data-theme='dark'] .hero-stats {
-  color: #ddd6fe;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) .hero-stats {
-    color: #ddd6fe;
   }
 }
 
