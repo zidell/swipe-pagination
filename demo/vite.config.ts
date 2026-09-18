@@ -4,8 +4,8 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   root: fileURLToPath(new URL('.', import.meta.url)),
-  // Served from the root of swipe-pagination.gitools.net
-  base: '/',
+  // Served from https://zidell.github.io/swipe-pagination/
+  base: '/swipe-pagination/',
   plugins: [tailwindcss()],
   server: { port: 4790, strictPort: true },
   preview: { port: 4790, strictPort: true },
