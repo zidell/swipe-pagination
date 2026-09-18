@@ -178,7 +178,7 @@ The same approach works for Flowbite, UnoCSS, or your own component classes, e.g
 | `href` | `(page) => string` | – | Render pages as `<a href>` links. |
 | `sideMargin` | `number` | `8` | Space before the first and after the last page, in px. |
 | `scrollStep` | `number` | `0.9` | Arrow scroll distance as a fraction of the visible width. |
-| `duration` | `number` | `300` | Scroll animation length in ms. `0` turns animation off. |
+| `duration` | `number` | `300` | Scroll animation length in ms. `0` turns animation off. Animation is also skipped when the user has *reduce motion* turned on. |
 | `overscan` | `number` | `120` | Extra px rendered past each edge. |
 | `classNames` | `Partial<ClassNames>` | – | Classes appended to the built-in ones ([see below](#class-names)). |
 | `labels` | `{ root, prev, next, page(n) }` | English | Accessible labels, e.g. `{ prev: '이전', next: '다음', page: (n) => \`${n}페이지\` }`. |
@@ -250,6 +250,7 @@ State attributes for CSS: `nav[data-at-start]`, `nav[data-at-end]` (both present
 
 ## Layout notes
 
+- The scrollbar is hidden on every platform, including Windows where scrollbars are always visible. Scrolling still works.
 - The strip fills its container's width. In a flex row, give the host `flex: 1; min-width: 0` (or a width), just as you would for an input.
 - The track can be millions of pixels wide, but it never stretches grid, flex or table ancestors (`contain: inline-size`).
 - Starting inside a hidden container (a tab or modal) is fine. It lays itself out when it becomes visible.
