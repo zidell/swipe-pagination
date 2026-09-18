@@ -1,7 +1,7 @@
 name: Release
 
 # Push a version tag (git tag v0.2.0 && git push --tags) to publish to npm
-# and deploy the demo to https://swipe-pagination.gitools.net together.
+# and deploy the demo to https://zidell.github.io/swipe-pagination/ together.
 on:
   push:
     tags: ['v*']
@@ -51,9 +51,19 @@ jobs:
           node-version: 24
           registry-url: https://registry.npmjs.org
           cache: npm
-      - run: npm ci
-      - run: npm run build
-      - run: npm publish --provenance --access public
+      - name: Skip if this version is already on npm
+        id: check
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if npm view "swipe-pagination@$version" version >/dev/null 2>&1; then
+            echo "v$version is already published"; echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.check.outputs.skip != 'true'
+        run: npm ci
+      - if: steps.check.outputs.skip != 'true'
+        run: npm run build
+      - if: steps.check.outputs.skip != 'true'
+        run: npm publish --provenance --access public
 
   demo:
     needs: verify

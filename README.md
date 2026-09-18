@@ -6,7 +6,7 @@
 [![bundle size](https://img.shields.io/bundlephobia/minzip/swipe-pagination)](https://bundlephobia.com/package/swipe-pagination)
 [![license](https://img.shields.io/npm/l/swipe-pagination)](./LICENSE)
 
-**[Live demo & playground →](https://swipe-pagination.gitools.net)**
+**[Live demo & playground →](https://zidell.github.io/swipe-pagination/)**
 
 - **No detours.** To go from page 1 to page 50, swipe (or tap the arrows a few times) and pick page 50. You don't load every page in between.
 - **One line at any width.** Even at 320px or with page numbers in the thousands, the strip never wraps. A wider container just shows more pages.
