@@ -14,11 +14,23 @@
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%235b4cf0'/%3E%3Cpath d='M9 16h14M19 11l5 5-5 5M13 11l-5 5 5 5' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
     />
+    <link rel="stylesheet" href="./demo.css" />
+    <style>
+      /* Korean text is swapped in by script; hide until then so English never flashes. */
+      html.i18n-pending body { visibility: hidden; }
+    </style>
     <script>
       try {
         const saved = localStorage.getItem('sp-demo-theme');
         if (saved) document.documentElement.dataset.theme = saved;
       } catch {}
+      // Same rule as demo/i18n.ts detect().
+      const forced = new URLSearchParams(location.search).get('lang');
+      const preferred = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+      if (forced === 'ko' || (forced !== 'en' && preferred.toLowerCase().startsWith('ko'))) {
+        document.documentElement.classList.add('i18n-pending');
+        setTimeout(() => document.documentElement.classList.remove('i18n-pending'), 1500);
+      }
     </script>
   </head>
   <body>
@@ -26,19 +38,19 @@
       <div class="wrap topbar__inner">
         <a class="brand" href="#top">
           <span class="brand__mark" aria-hidden="true">
-            <svg viewBox="0 0 32 32"><path d="M9 16h14M19 11l5 5-5 5M13 11l-5 5 5 5" /></svg>
+            <svg viewBox="0 0 32 32" width="20" height="20"><path d="M9 16h14M19 11l5 5-5 5M13 11l-5 5 5 5" /></svg>
           </span>
           swipe-pagination
           <span class="badge" id="version"></span>
         </a>
         <nav class="topbar__links" aria-label="Site">
-          <a href="#playground">Playground</a>
-          <a href="#themes">Themes</a>
-          <a href="#usage">Usage</a>
+          <a href="#playground" data-i18n="nav.playground">Playground</a>
+          <a href="#themes" data-i18n="nav.themes">Themes</a>
+          <a href="#usage" data-i18n="nav.usage">Usage</a>
           <a href="#api">API</a>
           <a href="https://github.com/zidell/swipe-pagination">GitHub</a>
           <button class="icon-button" id="theme-toggle" type="button" aria-label="Toggle dark mode">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" /></svg>
+            <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" /></svg>
           </button>
         </nav>
       </div>
@@ -47,8 +59,8 @@
     <main id="top">
       <section class="hero wrap">
         <p class="eyebrow">Vanilla JS · React · Vue · Svelte</p>
-        <h1>Pagination you can <em>swipe</em>.</h1>
-        <p class="lead">
+        <h1 data-i18n="hero.title">Pagination you can <em>swipe</em>.</h1>
+        <p class="lead" data-i18n="hero.lead">
           One responsive line of page numbers that you scroll instead of step through. Jump from page 1 to page 3,000
           with a flick, never wrap onto a second line, and render only the numbers on screen.
         </p>
@@ -60,34 +72,34 @@
         <div class="stage-hero">
           <div class="theme-default hero-strip" id="hero"></div>
           <div class="hero-stats" aria-live="polite">
-            <span><strong id="hero-page">1,234</strong> of 5,000</span>
-            <span><strong id="hero-dom">–</strong> DOM nodes</span>
-            <span>Showing <strong id="hero-range">–</strong></span>
+            <span data-i18n="hero.page"><strong id="hero-page">1,234</strong> of 5,000</span>
+            <span data-i18n="hero.dom"><strong id="hero-dom">–</strong> DOM nodes</span>
+            <span data-i18n="hero.range">Showing <strong id="hero-range">–</strong></span>
           </div>
         </div>
-        <p class="hint">Swipe or drag-scroll the numbers, tap the arrows (tap them fast), or tab in and use ← → Home End.</p>
+        <p class="hint" data-i18n="hero.hint">Swipe or drag-scroll the numbers, tap the arrows (tap them fast), or tab in and use ← → Home End.</p>
       </section>
 
       <section class="wrap section" id="why">
-        <h2>Why</h2>
+        <h2 data-i18n="why.title">Why</h2>
         <div class="cards">
           <article class="card">
-            <h3>No detours</h3>
-            <p>
+            <h3 data-i18n="why.1.title">No detours</h3>
+            <p data-i18n="why.1.body">
               With classic pagination, getting from page 1 to page 50 means clicking through the pages in between, and
               each one loads. Here you swipe to page 50 and tap it once.
             </p>
           </article>
           <article class="card">
-            <h3>One line at any width</h3>
-            <p>
+            <h3 data-i18n="why.2.title">One line at any width</h3>
+            <p data-i18n="why.2.body">
               Once pages reach the thousands, the buttons get wide and wrap onto a second line on phones. Every page
               lives in one scroll area, so the strip stays on one line even at 320px. Widen it and you just see more pages.
             </p>
           </article>
           <article class="card">
-            <h3>Thousands of pages, few nodes</h3>
-            <p>
+            <h3 data-i18n="why.3.title">Thousands of pages, few nodes</h3>
+            <p data-i18n="why.3.body">
               Rendering 5,000 buttons freezes the page. Only the visible numbers are rendered, and each number is only as
               wide as its digits, so no space is wasted.
             </p>
@@ -96,8 +108,8 @@
       </section>
 
       <section class="wrap section" id="playground">
-        <h2>Playground</h2>
-        <p class="section-lead">Drag the handle at the bottom-right of the box to resize it. Every control maps to an option or method.</p>
+        <h2 data-i18n="pg.title">Playground</h2>
+        <p class="section-lead" data-i18n="pg.lead">Drag the handle at the bottom-right of the box to resize it. Every control maps to an option or method.</p>
         <div class="playground">
           <div class="pg-stage">
             <div class="resizable theme-default" id="pg-resizable">
@@ -107,7 +119,7 @@
               <div><dt>getActive()</dt><dd id="ro-active"></dd></div>
               <div><dt>getTotal()</dt><dd id="ro-total"></dd></div>
               <div><dt>getVisibleRange()</dt><dd id="ro-range"></dd></div>
-              <div><dt>DOM nodes</dt><dd id="ro-dom"></dd></div>
+              <div><dt data-i18n="pg.dom">DOM nodes</dt><dd id="ro-dom"></dd></div>
             </dl>
             <div class="methods">
               <button type="button" data-method="scrollPrev">scrollPrev()</button>
@@ -142,30 +154,34 @@
             <label>
               <span>sideMargin <output name="sideMarginOut">8</output></span>
               <input type="range" name="sideMargin" min="0" max="48" value="8" />
+              <small class="hint-text" data-i18n="pg.hint.sideMargin">Space before page 1 and after the last page. Scroll to either end to see it.</small>
             </label>
             <label>
               <span>scrollStep <output name="scrollStepOut">0.9</output></span>
               <input type="range" name="scrollStep" min="0.2" max="1" step="0.1" value="0.9" />
+              <small class="hint-text" data-i18n="pg.hint.scrollStep">How far one arrow press scrolls. Press an arrow to see it.</small>
             </label>
             <label>
               <span>duration <output name="durationOut">300</output></span>
               <input type="range" name="duration" min="0" max="1000" step="50" value="300" />
+              <small class="hint-text" data-i18n="pg.hint.duration">Animation length for arrows and page picks. Press an arrow to see it.</small>
             </label>
             <label>
               <span>overscan <output name="overscanOut">120</output></span>
               <input type="range" name="overscan" min="0" max="400" step="20" value="120" />
+              <small class="hint-text" data-i18n="pg.hint.overscan">Pages kept rendered past each edge. Watch “DOM nodes”.</small>
             </label>
             <label class="check">
               <input type="checkbox" name="href" />
-              <span>href → render &lt;a&gt; links</span>
+              <span data-i18n="pg.href">href → render &lt;a&gt; links</span>
             </label>
           </form>
         </div>
       </section>
 
       <section class="wrap section" id="themes">
-        <h2>Themes</h2>
-        <p class="section-lead">
+        <h2 data-i18n="themes.title">Themes</h2>
+        <p class="section-lead" data-i18n="themes.lead">
           Every theme reads its UI library's CSS variables, so your brand colors, radius and dark mode carry over. Import
           one file. For utility-first CSS such as Tailwind, pass <code>classNames</code> instead.
         </p>
@@ -173,20 +189,20 @@
       </section>
 
       <section class="wrap section" id="usage">
-        <h2>Usage</h2>
+        <h2 data-i18n="usage.title">Usage</h2>
         <div class="tabs" id="usage-tabs"></div>
       </section>
 
       <section class="wrap section" id="api">
         <h2>API</h2>
-        <h3>Options</h3>
+        <h3 data-i18n="api.options">Options</h3>
         <div class="table-wrap"><table id="options-table"></table></div>
-        <h3>Methods</h3>
+        <h3 data-i18n="api.methods">Methods</h3>
         <div class="table-wrap"><table id="methods-table"></table></div>
-        <h3>CSS variables</h3>
+        <h3 data-i18n="api.vars">CSS variables</h3>
         <div class="table-wrap"><table id="vars-table"></table></div>
-        <h3>Class names</h3>
-        <p>
+        <h3 data-i18n="api.classes">Class names</h3>
+        <p data-i18n="api.classes.lead">
           The built-in classes are always present. Strings in <code>classNames</code> are appended, so they add to the
           styling and never replace the layout.
         </p>
@@ -194,36 +210,41 @@
       </section>
 
       <section class="wrap section" id="how">
-        <h2>How it works</h2>
+        <h2 data-i18n="how.title">How it works</h2>
         <div class="how">
           <ol>
-            <li>
+            <li data-i18n="how.1">
               <strong>A native scroll area.</strong> The numbers sit on one wide, empty track inside a horizontally
               scrolling box. Touch, trackpad and wheel scrolling come from the browser, momentum included.
             </li>
-            <li>
+            <li data-i18n="how.2">
               <strong>Width per digit count.</strong> On start, one number of each length (8, 88, 888 …) is measured.
               Pages with the same digit count share one width.
             </li>
-            <li>
+            <li data-i18n="how.3">
               <strong>Position ⇄ page in O(digits).</strong> A page's left edge is the sum over digit tiers. Page 15 sits
               at <code>9 × w₁ + 5 × w₂</code>. The inverse turns a scroll position back into a page.
             </li>
-            <li>
+            <li data-i18n="how.4">
               <strong>Render what's visible.</strong> On scroll, only the pages in view (plus a little overscan) are
               rendered and recycled, absolutely positioned. With 1,000,000 pages there are still about 20 elements.
             </li>
           </ol>
-          <p class="aside">
-            Background: <a href="https://maxzidell.medium.com/c4252df8dca7">모바일을 위한 새로운 페이지네이션</a> (the
-            original write-up, in Korean).
-          </p>
+          <ul class="aside">
+            <li data-i18n="how.aside">
+              Built on the ideas in “<a href="https://maxzidell.medium.com/c4252df8dca7">모바일을 위한 새로운 페이지네이션</a>”
+              (a blog post in Korean)
+            </li>
+            <li data-i18n="how.production">
+              Proven in production at <a href="https://videostew.com">VideoStew (videostew.com)</a>
+            </li>
+          </ul>
         </div>
       </section>
     </main>
 
     <footer class="footer wrap">
-      <span>MIT License</span>
+      <span data-i18n="footer.license">MIT License</span>
       <a href="https://github.com/zidell/swipe-pagination">GitHub</a>
       <a href="https://www.npmjs.com/package/swipe-pagination">npm</a>
     </footer>

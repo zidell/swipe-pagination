@@ -207,6 +207,26 @@ describe('scrolling', () => {
     expect(viewport.scrollLeft).toBe(1321);
   });
 
+  it('jumps without animating when the user prefers reduced motion', () => {
+    let reduce = true;
+    const matchMedia = vi.fn((query: string) => ({ matches: reduce && query === '(prefers-reduced-motion: reduce)' }));
+    vi.stubGlobal('matchMedia', matchMedia);
+    try {
+      const { viewport, sp } = setup({ total: 100, active: 50 });
+      sp.scrollNext();
+      expect(viewport.scrollLeft).toBe(1321 + 180);
+
+      // Read on every scroll, so changing the OS setting applies right away.
+      reduce = false;
+      sp.scrollNext();
+      expect(viewport.scrollLeft).toBe(1321 + 180);
+      vi.advanceTimersByTime(400);
+      expect(viewport.scrollLeft).toBe(1321 + 360);
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+
   it('stops animating when the user grabs the strip', () => {
     const { viewport, next } = setup({ total: 100, active: 50 });
     next.click();
@@ -463,6 +483,14 @@ describe('update', () => {
     item(61)!.click();
     sp.update({ active: 60 });
     expect(sp.getActive()).toBe(61);
+  });
+
+  it('re-renders right away when overscan changes', () => {
+    const { sp, pages } = setup({ total: 100, active: 50 });
+    sp.update({ overscan: 0 });
+    expect(pages()).toEqual(range(47, 53));
+    sp.update({ overscan: 120 });
+    expect(pages()).toEqual(range(43, 57));
   });
 
   it('refresh re-measures and keeps the centered page', () => {
