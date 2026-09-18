@@ -207,21 +207,16 @@ describe('scrolling', () => {
     expect(viewport.scrollLeft).toBe(1321);
   });
 
-  it('jumps without animating when the user prefers reduced motion', () => {
-    let reduce = true;
-    const matchMedia = vi.fn((query: string) => ({ matches: reduce && query === '(prefers-reduced-motion: reduce)' }));
+  it('continues animating when the user prefers reduced motion', () => {
+    const matchMedia = vi.fn((query: string) => ({ matches: query === '(prefers-reduced-motion: reduce)' }));
     vi.stubGlobal('matchMedia', matchMedia);
     try {
       const { viewport, sp } = setup({ total: 100, active: 50 });
       sp.scrollNext();
-      expect(viewport.scrollLeft).toBe(1321 + 180);
-
-      // Read on every scroll, so changing the OS setting applies right away.
-      reduce = false;
-      sp.scrollNext();
-      expect(viewport.scrollLeft).toBe(1321 + 180);
+      expect(viewport.scrollLeft).toBe(1321);
       vi.advanceTimersByTime(400);
-      expect(viewport.scrollLeft).toBe(1321 + 360);
+      expect(viewport.scrollLeft).toBe(1321 + 180);
+      expect(matchMedia).not.toHaveBeenCalled();
     } finally {
       vi.unstubAllGlobals();
     }

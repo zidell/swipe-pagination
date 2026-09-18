@@ -365,8 +365,8 @@ table('options-table', [tx('Option', '옵션'), tx('Type', '타입'), tx('Defaul
   ['sideMargin', 'number', '8', tx('Space before the first and after the last page, in px.', '첫 페이지 앞과 마지막 페이지 뒤의 여백(px).')],
   ['scrollStep', 'number', '0.9', tx('Arrow scroll distance as a fraction of the visible width.', '화살표를 한 번 누를 때 스크롤하는 거리. 보이는 폭에 대한 비율입니다.')],
   ['duration', 'number', '300', tx(
-    'Scroll animation length in ms. <code>0</code> turns animation off. Also skipped when the OS <em>reduce motion</em> setting is on.',
-    '스크롤 애니메이션 시간(ms). <code>0</code>이면 애니메이션을 끕니다. OS에서 <em>동작 줄이기</em>를 켠 사용자에게도 애니메이션 없이 이동합니다.',
+    'Scroll animation length in ms. <code>0</code> turns animation off.',
+    '스크롤 애니메이션 시간(ms). <code>0</code>이면 애니메이션을 끕니다.',
   )],
   ['overscan', 'number', '120', tx('Extra px rendered past each edge.', '양쪽 가장자리 밖으로 미리 그려 두는 폭(px).')],
   ['classNames', 'Partial&lt;ClassNames&gt;', '–', tx('Classes appended to the built-in ones. See below.', '기본 클래스 뒤에 덧붙일 클래스. 아래 표를 참고하세요.')],
