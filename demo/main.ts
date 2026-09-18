@@ -122,21 +122,11 @@ for (const theme of THEMES) {
 
 // ---------------------------------------------------------------- hero
 
-const hero = new SwipePagination($('#hero'), {
+new SwipePagination($('#hero'), {
   total: 5000,
   active: 1234,
   labels,
-  onChange: () => updateHero(),
 });
-
-function updateHero() {
-  $('#hero-page').textContent = fmt(hero.getActive());
-  $('#hero-dom').textContent = String(domCount(hero));
-  const range = hero.getVisibleRange();
-  $('#hero-range').textContent = range ? `${fmt(range.start)}–${fmt(range.end)}` : '–';
-}
-hero.root.addEventListener('scroll', () => requestAnimationFrame(updateHero), { capture: true, passive: true });
-updateHero();
 
 // ---------------------------------------------------------------- playground
 
