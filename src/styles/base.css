@@ -1,0 +1,59 @@
+/* swipe-pagination — structure. Required by every theme. */
+
+.swipe-pagination {
+  --sp-fade: 24px;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.swipe-pagination__arrow {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swipe-pagination__viewport {
+  --_sp-fade-start: var(--sp-fade);
+  --_sp-fade-end: var(--sp-fade);
+  flex: 1 1 auto;
+  min-width: 0;
+  /* The track can be millions of px wide; keep that out of ancestors' intrinsic sizing (grid, flex, tables). */
+  contain: inline-size;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  /* Fades the numbers themselves, so it works on any background. */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--_sp-fade-start), #000 calc(100% - var(--_sp-fade-end)), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 var(--_sp-fade-start), #000 calc(100% - var(--_sp-fade-end)), transparent);
+}
+
+.swipe-pagination__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.swipe-pagination[data-at-start] .swipe-pagination__viewport {
+  --_sp-fade-start: 0px;
+}
+
+.swipe-pagination[data-at-end] .swipe-pagination__viewport {
+  --_sp-fade-end: 0px;
+}
+
+.swipe-pagination__track {
+  position: relative;
+}
+
+.swipe-pagination__item {
+  position: absolute;
+  top: 0;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}

@@ -1,0 +1,46 @@
+/* swipe-pagination — Mantine 7+ theme. Follows --mantine-* variables, including dark color scheme. */
+
+.swipe-pagination {
+  --sp-gap: 0.5rem;
+  gap: 0.5rem;
+  font-size: var(--mantine-font-size-sm, 0.875rem);
+}
+
+.swipe-pagination .swipe-pagination__item,
+.swipe-pagination .swipe-pagination__arrow {
+  appearance: none;
+  margin: 0;
+  height: 2rem;
+  min-width: 2rem;
+  padding: 0 0.5rem;
+  border: 1px solid var(--mantine-color-default-border, #ced4da);
+  border-radius: var(--mantine-radius-default, 0.25rem);
+  background: var(--mantine-color-default, #fff);
+  color: var(--mantine-color-text, #000);
+  font: inherit;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.swipe-pagination .swipe-pagination__item:hover,
+.swipe-pagination .swipe-pagination__arrow:not(:disabled):hover {
+  background: var(--mantine-color-default-hover, #f8f9fa);
+}
+
+.swipe-pagination .swipe-pagination__item[aria-current='page'] {
+  border-color: transparent;
+  background: var(--mantine-primary-color-filled, #228be6);
+  color: var(--mantine-primary-color-contrast, #fff);
+}
+
+.swipe-pagination .swipe-pagination__item:focus-visible,
+.swipe-pagination .swipe-pagination__arrow:focus-visible {
+  outline: 2px solid var(--mantine-primary-color-filled, #228be6);
+  outline-offset: -2px;
+}
+
+.swipe-pagination .swipe-pagination__arrow:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
