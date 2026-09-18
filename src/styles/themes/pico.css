@@ -1,0 +1,49 @@
+/* swipe-pagination — Pico CSS 2 theme. Pico styles every <button>, so selectors are doubled to win. */
+
+.swipe-pagination {
+  --sp-gap: 0.25rem;
+  gap: 0.25rem;
+}
+
+.swipe-pagination.swipe-pagination .swipe-pagination__item,
+.swipe-pagination.swipe-pagination .swipe-pagination__arrow {
+  appearance: none;
+  width: auto;
+  margin: 0;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  padding: 0 0.625rem;
+  border: var(--pico-border-width, 0.0625rem) solid transparent;
+  border-radius: var(--pico-border-radius, 0.25rem);
+  background: transparent;
+  box-shadow: none;
+  color: var(--pico-primary, #0172ad);
+  font: inherit;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--pico-transition, 0.2s), color var(--pico-transition, 0.2s);
+}
+
+.swipe-pagination.swipe-pagination .swipe-pagination__item:hover,
+.swipe-pagination.swipe-pagination .swipe-pagination__arrow:not(:disabled):hover {
+  background: var(--pico-primary-focus, rgba(2, 154, 232, 0.125));
+  color: var(--pico-primary-hover, #015887);
+}
+
+.swipe-pagination.swipe-pagination .swipe-pagination__item[aria-current='page'] {
+  background: var(--pico-primary-background, #0172ad);
+  border-color: var(--pico-primary-border, #0172ad);
+  color: var(--pico-primary-inverse, #fff);
+}
+
+.swipe-pagination.swipe-pagination .swipe-pagination__item:focus-visible,
+.swipe-pagination.swipe-pagination .swipe-pagination__arrow:focus-visible {
+  outline: 0;
+  box-shadow: inset 0 0 0 var(--pico-outline-width, 0.125rem) var(--pico-primary-focus, rgba(2, 154, 232, 0.5));
+}
+
+.swipe-pagination.swipe-pagination .swipe-pagination__arrow:disabled {
+  opacity: 0.4;
+  cursor: default;
+}

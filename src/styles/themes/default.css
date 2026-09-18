@@ -1,0 +1,64 @@
+/* swipe-pagination — default theme. Follows `currentColor`, so it fits light and dark pages. */
+
+.swipe-pagination {
+  --sp-gap: 4px;
+  --sp-size: 2.25rem;
+  --sp-padding-x: 0.625rem;
+  --sp-radius: 0.5rem;
+  --sp-font-size: 0.9375rem;
+  --sp-color: inherit;
+  --sp-hover-bg: color-mix(in srgb, currentColor 9%, transparent);
+  --sp-active-bg: #2563eb;
+  --sp-active-color: #fff;
+  --sp-focus-ring: #2563eb;
+  gap: 4px;
+  color: var(--sp-color);
+  font-size: var(--sp-font-size);
+}
+
+.swipe-pagination .swipe-pagination__item,
+.swipe-pagination .swipe-pagination__arrow {
+  appearance: none;
+  margin: 0;
+  border: 0;
+  border-radius: var(--sp-radius);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: 1;
+  height: var(--sp-size);
+  min-width: var(--sp-size);
+  padding: 0 var(--sp-padding-x);
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.15s, color 0.15s, opacity 0.15s;
+}
+
+.swipe-pagination .swipe-pagination__arrow {
+  padding: 0;
+}
+
+@media (hover: hover) {
+  .swipe-pagination .swipe-pagination__item:hover,
+  .swipe-pagination .swipe-pagination__arrow:not(:disabled):hover {
+    background: var(--sp-hover-bg);
+  }
+}
+
+.swipe-pagination .swipe-pagination__item[aria-current='page'] {
+  background: var(--sp-active-bg);
+  color: var(--sp-active-color);
+  font-weight: 600;
+}
+
+.swipe-pagination .swipe-pagination__item:focus-visible,
+.swipe-pagination .swipe-pagination__arrow:focus-visible {
+  outline: 2px solid var(--sp-focus-ring);
+  outline-offset: -2px;
+}
+
+.swipe-pagination .swipe-pagination__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}

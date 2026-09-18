@@ -1,0 +1,53 @@
+/* swipe-pagination — daisyUI 5 theme. Follows --color-* and --radius-field, so every daisyUI theme applies. */
+
+.swipe-pagination {
+  --sp-gap: 0.25rem;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.swipe-pagination .swipe-pagination__item,
+.swipe-pagination .swipe-pagination__arrow {
+  appearance: none;
+  margin: 0;
+  height: calc(var(--size-field, 0.25rem) * 9);
+  min-width: calc(var(--size-field, 0.25rem) * 9);
+  padding: 0 0.75rem;
+  border: var(--border, 1px) solid transparent;
+  border-radius: var(--radius-field, 0.5rem);
+  background: transparent;
+  color: var(--color-base-content, #1f2937);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.swipe-pagination .swipe-pagination__arrow {
+  padding: 0;
+  background: var(--color-base-200, #f2f2f2);
+}
+
+.swipe-pagination .swipe-pagination__item:hover,
+.swipe-pagination .swipe-pagination__arrow:not(:disabled):hover {
+  background: var(--color-base-200, #f2f2f2);
+  border-color: var(--color-base-200, #f2f2f2);
+}
+
+.swipe-pagination .swipe-pagination__item[aria-current='page'] {
+  background: var(--color-primary, #422ad5);
+  border-color: var(--color-primary, #422ad5);
+  color: var(--color-primary-content, #e0e7ff);
+}
+
+.swipe-pagination .swipe-pagination__item:focus-visible,
+.swipe-pagination .swipe-pagination__arrow:focus-visible {
+  outline: 2px solid var(--color-base-content, #1f2937);
+  outline-offset: -2px;
+}
+
+.swipe-pagination .swipe-pagination__arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}

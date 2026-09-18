@@ -1,0 +1,142 @@
+{
+  "name": "swipe-pagination",
+  "version": "0.1.0",
+  "description": "A responsive, swipeable pagination strip. Thousands of pages, only the visible ones rendered. Vanilla core with React, Vue and Svelte components.",
+  "keywords": [
+    "pagination",
+    "paginator",
+    "swipe",
+    "touch",
+    "responsive",
+    "virtual-scroll",
+    "react",
+    "vue",
+    "svelte",
+    "bootstrap",
+    "tailwind",
+    "daisyui",
+    "shadcn"
+  ],
+  "homepage": "https://swipe-pagination.gitools.net",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zidell/swipe-pagination.git"
+  },
+  "bugs": "https://github.com/zidell/swipe-pagination/issues",
+  "license": "MIT",
+  "author": "zidell",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "unpkg": "./dist/swipe-pagination.iife.js",
+  "jsdelivr": "./dist/swipe-pagination.iife.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
+    },
+    "./vue": {
+      "import": {
+        "types": "./dist/vue.d.ts",
+        "default": "./dist/vue.js"
+      },
+      "require": {
+        "types": "./dist/vue.d.cts",
+        "default": "./dist/vue.cjs"
+      }
+    },
+    "./svelte": {
+      "types": "./dist/svelte/index.d.ts",
+      "svelte": "./dist/svelte/index.js",
+      "default": "./dist/svelte/index.js"
+    },
+    "./style.css": "./dist/style.css",
+    "./base.css": "./dist/base.css",
+    "./themes/*": "./dist/themes/*",
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "react": [
+        "./dist/react.d.ts"
+      ],
+      "vue": [
+        "./dist/vue.d.ts"
+      ],
+      "svelte": [
+        "./dist/svelte/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite --config demo/vite.config.ts",
+    "build": "rm -rf dist && tsup && node scripts/build-assets.mjs",
+    "build:demo": "vite build --config demo/vite.config.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck && npm run coverage && npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=17",
+    "svelte": "^4.0.0 || ^5.0.0",
+    "vue": "^3.3.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "svelte": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^7.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/svelte": "^5.4.2",
+    "@types/node": "^26.6.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitest/coverage-v8": "^5.0.1",
+    "@vue/test-utils": "^2.5.1",
+    "jsdom": "^30.1.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "svelte": "^5.57.0",
+    "tailwindcss": "^4.3.3",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.0",
+    "vitest": "^5.0.1",
+    "vue": "^3.5.43"
+  }
+}
