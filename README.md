@@ -178,7 +178,7 @@ The same approach works for Flowbite, UnoCSS, or your own component classes, e.g
 | `href` | `(page) => string` | – | Render pages as `<a href>` links. |
 | `sideMargin` | `number` | `8` | Space before the first and after the last page, in px. |
 | `scrollStep` | `number` | `0.9` | Arrow scroll distance as a fraction of the visible width. |
-| `duration` | `number` | `300` | Scroll animation length in ms. `0` turns animation off. Animation is also skipped when the user has *reduce motion* turned on. |
+| `duration` | `number` | `300` | Scroll animation length in ms. `0` turns animation off. |
 | `overscan` | `number` | `120` | Extra px rendered past each edge. |
 | `classNames` | `Partial<ClassNames>` | – | Classes appended to the built-in ones ([see below](#class-names)). |
 | `labels` | `{ root, prev, next, page(n) }` | English | Accessible labels, e.g. `{ prev: '이전', next: '다음', page: (n) => \`${n}페이지\` }`. |

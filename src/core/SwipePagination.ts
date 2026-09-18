@@ -35,7 +35,7 @@ export interface SwipePaginationOptions {
   sideMargin?: number;
   /** Arrow scroll distance as a fraction of the visible width. Default `0.9`. */
   scrollStep?: number;
-  /** Scroll animation length in ms. `0` disables animation. Skipped when the user prefers reduced motion. Default `300`. */
+  /** Scroll animation length in ms. `0` disables animation. Default `300`. */
   duration?: number;
   /** Extra px rendered beyond each visible edge. Default `120`. */
   overscan?: number;
@@ -93,9 +93,6 @@ const toTotal = (total: number | undefined) => Math.max(1, Math.floor(total ?? 1
 const clampPage = (page: number | undefined, total: number) =>
   Math.min(total, Math.max(1, Math.floor(page ?? 1) || 1));
 const easeOutCubic = (t: number) => 1 - (1 - t) ** 3;
-const prefersReducedMotion = () =>
-  typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-
 function toggleClasses(el: Element, classes: string, on: boolean) {
   for (const token of classes.split(/\s+/)) if (token) el.classList.toggle(token, on);
 }
@@ -436,7 +433,7 @@ export class SwipePagination {
     const max = Math.max(0, this.contentWidth - this.viewport.clientWidth);
     const to = Math.min(max, Math.max(0, target));
     const duration = this.options.duration ?? DEFAULTS.duration;
-    if (!animate || duration <= 0 || prefersReducedMotion()) {
+    if (!animate || duration <= 0) {
       this.setVirtualScroll(to);
       return;
     }
