@@ -9,6 +9,16 @@ jQuery, Bootstrap Icons, 전역 CSS 변수(`--bg-*-rgb`)에 대한 의존이 모
 npm i swipe-pagination
 ```
 
+가져오는 경로는 쓰고 있는 Svelte 버전에 따라 다릅니다. **아래 예제는 Svelte 3 기준**입니다.
+
+| Svelte | import |
+| --- | --- |
+| 3 | `swipe-pagination/svelte3` |
+| 4 | `swipe-pagination/svelte4` |
+| 5 | `swipe-pagination/svelte` |
+
+3과 4는 같은 컴포넌트 파일을 쓰고 타입만 다릅니다. 5는 runes로 작성된 별도 파일입니다. Svelte 3·4에서 실수로 `/svelte`를 쓰면 어느 경로를 쓰라는 에러가 바로 납니다. 반대로 Svelte 5에서 `/svelte4`를 써도 그냥 동작하니(runes를 강제한 프로젝트만 예외) 급하게 바꿀 필요는 없습니다.
+
 ## 2. 가장 빠른 방법: 기존 파일을 얇은 래퍼로 교체
 
 호출하는 쪽 코드는 그대로 두고, 기존 `Pagination.svelte` 파일 내용만 아래로 바꿉니다.
@@ -16,7 +26,7 @@ props 이름(`total`, `active`, `onClick`, `sideMargin`)이 같아서 호출부 
 
 ```svelte
 <script>
-	import { SwipePagination } from 'swipe-pagination/svelte';
+	import { SwipePagination } from 'swipe-pagination/svelte3';
 	import 'swipe-pagination/style.css'; // Bootstrap을 쓰는 프로젝트라면 'swipe-pagination/themes/bootstrap5.css'
 
 	export let total = 1;
@@ -44,7 +54,7 @@ props 이름(`total`, `active`, `onClick`, `sideMargin`)이 같아서 호출부 
 
 ```svelte
 <script>
-	import { SwipePagination } from 'swipe-pagination/svelte';
+	import { SwipePagination } from 'swipe-pagination/svelte3';
 	import 'swipe-pagination/style.css';
 
 	let page = 1;
@@ -53,6 +63,8 @@ props 이름(`total`, `active`, `onClick`, `sideMargin`)이 같아서 호출부 
 
 <SwipePagination total={totalPages} bind:active={page} />
 ```
+
+나중에 Svelte 5로 올리면 import를 `swipe-pagination/svelte`로 바꾸고, `let page = 1`과 `$:` 대신 `let page = $state(1)`과 `$effect`를 쓰면 됩니다. props는 그대로입니다.
 
 ## props 대응표
 
