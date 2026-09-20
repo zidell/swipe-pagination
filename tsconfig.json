@@ -26,5 +26,11 @@
     "test",
     "demo",
     "*.config.ts"
+  ],
+  // Each older Svelte entry is checked against its own major by tsconfig.svelte4.json
+  // and tsconfig.svelte3.json, not against the Svelte 5 installed here.
+  "exclude": [
+    "src/svelte3",
+    "src/svelte4"
   ]
 }

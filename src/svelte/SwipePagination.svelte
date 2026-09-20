@@ -1,22 +1,27 @@
+<!-- Svelte 5. On Svelte 4 or 3, import 'swipe-pagination/svelte4' or 'swipe-pagination/svelte3'. -->
 <script>
-	import { onMount } from 'svelte';
+	// A namespace import, so that on Svelte 4 or 3 — where `untrack` does not exist —
+	// the bundler does not fail on a missing binding before index.js can say which
+	// entry to use instead.
+	import * as svelte from 'svelte';
 	import { SwipePagination } from 'swipe-pagination';
 
-	export let total = 1;
-	export let active = 1;
-	export let onChange = undefined;
-	export let href = undefined;
-	export let sideMargin = undefined;
-	export let scrollStep = undefined;
-	export let duration = undefined;
-	export let overscan = undefined;
-	export let classNames = undefined;
-	export let labels = undefined;
-	export let prevIcon = undefined;
-	export let nextIcon = undefined;
-	let className = '';
-	export { className as class };
-	export let style = undefined;
+	let {
+		total = 1,
+		active = $bindable(1),
+		onChange,
+		href,
+		sideMargin,
+		scrollStep,
+		duration,
+		overscan,
+		classNames,
+		labels,
+		prevIcon,
+		nextIcon,
+		class: className = '',
+		style,
+	} = $props();
 
 	let host;
 	let instance = null;
@@ -25,7 +30,7 @@
 		return instance;
 	}
 
-	$: options = {
+	const options = $derived({
 		total,
 		active,
 		href,
@@ -37,21 +42,28 @@
 		labels,
 		prevIcon,
 		nextIcon,
-	};
-	$: instance?.update(options);
+	});
 
-	onMount(() => {
-		instance = new SwipePagination(host, {
-			...options,
+	$effect(() => {
+		// Untracked: this effect mounts the pager once. Option changes go to the
+		// effect below, which updates it in place instead of recreating it.
+		const pager = new SwipePagination(host, {
+			...svelte.untrack(() => options),
 			onChange: (page, event) => {
 				active = page;
 				onChange?.(page, event);
 			},
 		});
+		instance = pager;
 		return () => {
-			instance.destroy();
+			pager.destroy();
 			instance = null;
 		};
+	});
+
+	$effect(() => {
+		const next = options;
+		instance?.update(next);
 	});
 </script>
 
