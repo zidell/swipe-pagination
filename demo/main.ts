@@ -271,10 +271,10 @@ const pager = ref(); ${tx('// pager.value.getInstance()', '// pager.value.getIns
   <SwipePagination ref="pager" :total="5000" v-model:active="page" @change="loadPage" />
 </template>`,
   Svelte: `<script>
-  import { SwipePagination } from 'swipe-pagination/svelte';
+  import { SwipePagination } from 'swipe-pagination/svelte'; ${tx("// Svelte 4/3: '/svelte4', '/svelte3'", "// Svelte 4/3은 '/svelte4', '/svelte3'")}
   import 'swipe-pagination/style.css';
 
-  let page = 1;
+  let page = $state(1);
   let pager; ${tx('// pager.getInstance()', '// pager.getInstance()로 인스턴스 접근')}
 </script>
 

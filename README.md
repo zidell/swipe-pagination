@@ -14,13 +14,28 @@
 - **Native feel.** It uses the browser's own touch, trackpad and momentum scrolling. Tapping an arrow several times quickly moves further instead of restarting the animation.
 - **Fades only where more pages are.** The edge fade is a CSS mask, so it works on any background: solid, gradient or image.
 - **Accessible.** It renders a `<nav>` with `<button>`s (or `<a href>` links) and `aria-current="page"`, and supports ← → Home End.
-- **Any stack.** The core has zero dependencies. It ships React, Vue 3 and Svelte 4/5 components and themes for Bootstrap 5, daisyUI, shadcn/ui, Bulma, Pico and Mantine, and works with Tailwind through `classNames`.
+- **Any stack.** The core has zero dependencies. It ships React 17–19, Vue 3 and Svelte 3/4/5 components and themes for Bootstrap 5, daisyUI, shadcn/ui, Bulma, Pico and Mantine, and works with Tailwind through `classNames`.
 
 ## Install
 
 ```bash
 npm i swipe-pagination
 ```
+
+## Supported versions
+
+| Library | Versions | Import |
+| --- | --- | --- |
+| None — vanilla JS/TS | – | `swipe-pagination` |
+| React | 17, 18, 19 | `swipe-pagination/react` (or `/react17`, `/react18`, `/react19`) |
+| Vue | 3.3+ | `swipe-pagination/vue` (or `/vue3`) |
+| Svelte | 5 | `swipe-pagination/svelte` (or `/svelte5`) |
+| Svelte | 4 | `swipe-pagination/svelte4` |
+| Svelte | 3 | `swipe-pagination/svelte3` |
+
+The unnumbered path (`/react`, `/vue`, `/svelte`) is always the newest major. The numbered paths name the version you are on; when you upgrade, update the package and move the import back to the unnumbered one.
+
+`/svelte` is a runes component, so it also works in an app compiled with `runes: true`. `/svelte4` and `/svelte3` load the pre-runes component instead — the same file for both, with separate declarations because `SvelteComponent` only became generic in Svelte 4 and Svelte 3 spells it `SvelteComponentTyped`.
 
 ## Quick start
 
@@ -78,18 +93,20 @@ const page = ref(1);
 
 Emits `update:active` and `change(page, event)`. Get the instance with a template ref: `pager.value.getInstance()`.
 
-### Svelte 4 / 5
+### Svelte
 
 ```svelte
 <script>
   import { SwipePagination } from 'swipe-pagination/svelte';
   import 'swipe-pagination/style.css';
 
-  let page = 1;
+  let page = $state(1);
 </script>
 
 <SwipePagination total={5000} bind:active={page} onChange={loadPage} />
 ```
+
+On Svelte 4 and 3, import from `swipe-pagination/svelte4` or `swipe-pagination/svelte3` and write `let page = 1` — everything else is the same.
 
 Get the instance with `bind:this={pager}` and then `pager.getInstance()`.
 
@@ -274,9 +291,9 @@ Background story (Korean): [모바일을 위한 새로운 페이지네이션](ht
 ```bash
 npm i
 npm run dev         # demo at http://localhost:5173 with live source
-npm test            # vitest (jsdom)
+npm test            # vitest (jsdom); Svelte 5, 4 and a Svelte 3 compile/mount test
 npm run coverage    # 100% coverage is enforced
-npm run typecheck
+npm run typecheck   # the repo, plus each Svelte entry against its own major
 npm run build       # dist/ (ESM, CJS, IIFE, types, CSS, Svelte)
 npm run build:demo  # demo/dist
 ```
