@@ -1,7 +1,7 @@
 {
   "name": "swipe-pagination",
   "version": "0.1.1",
-  "description": "A responsive, swipeable pagination strip. Thousands of pages, only the visible ones rendered. Vanilla core with React, Vue and Svelte components.",
+  "description": "A responsive, swipeable pagination strip. Thousands of pages, only the visible ones rendered. Vanilla core with React 17+, Vue 3 and Svelte 3/4/5 components.",
   "keywords": [
     "pagination",
     "paginator",
@@ -55,7 +55,47 @@
         "default": "./dist/react.cjs"
       }
     },
+    "./react17": {
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
+    },
+    "./react18": {
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
+    },
+    "./react19": {
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
+    },
     "./vue": {
+      "import": {
+        "types": "./dist/vue.d.ts",
+        "default": "./dist/vue.js"
+      },
+      "require": {
+        "types": "./dist/vue.d.cts",
+        "default": "./dist/vue.cjs"
+      }
+    },
+    "./vue3": {
       "import": {
         "types": "./dist/vue.d.ts",
         "default": "./dist/vue.js"
@@ -70,6 +110,21 @@
       "svelte": "./dist/svelte/index.js",
       "default": "./dist/svelte/index.js"
     },
+    "./svelte3": {
+      "types": "./dist/svelte3/index.d.ts",
+      "svelte": "./dist/svelte4/index.js",
+      "default": "./dist/svelte4/index.js"
+    },
+    "./svelte4": {
+      "types": "./dist/svelte4/index.d.ts",
+      "svelte": "./dist/svelte4/index.js",
+      "default": "./dist/svelte4/index.js"
+    },
+    "./svelte5": {
+      "types": "./dist/svelte/index.d.ts",
+      "svelte": "./dist/svelte/index.js",
+      "default": "./dist/svelte/index.js"
+    },
     "./style.css": "./dist/style.css",
     "./base.css": "./dist/base.css",
     "./themes/*": "./dist/themes/*",
@@ -80,10 +135,31 @@
       "react": [
         "./dist/react.d.ts"
       ],
+      "react17": [
+        "./dist/react.d.ts"
+      ],
+      "react18": [
+        "./dist/react.d.ts"
+      ],
+      "react19": [
+        "./dist/react.d.ts"
+      ],
       "vue": [
         "./dist/vue.d.ts"
       ],
+      "vue3": [
+        "./dist/vue.d.ts"
+      ],
       "svelte": [
+        "./dist/svelte/index.d.ts"
+      ],
+      "svelte3": [
+        "./dist/svelte3/index.d.ts"
+      ],
+      "svelte4": [
+        "./dist/svelte4/index.d.ts"
+      ],
+      "svelte5": [
         "./dist/svelte/index.d.ts"
       ]
     }
@@ -98,12 +174,12 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.svelte5.json && tsc --noEmit -p tsconfig.svelte4.json && tsc --noEmit -p tsconfig.svelte3.json",
     "prepublishOnly": "npm run typecheck && npm run coverage && npm run build"
   },
   "peerDependencies": {
     "react": ">=17",
-    "svelte": "^4.0.0 || ^5.0.0",
+    "svelte": "^3.0.0 || ^4.0.0 || ^5.0.0",
     "vue": "^3.3.0"
   },
   "peerDependenciesMeta": {
@@ -132,6 +208,8 @@
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "svelte": "^5.57.0",
+    "svelte3": "npm:svelte@^3.59.2",
+    "svelte4": "npm:svelte@^4.2.20",
     "tailwindcss": "^4.3.3",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",

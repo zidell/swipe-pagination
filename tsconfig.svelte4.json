@@ -1,0 +1,15 @@
+{
+  // src/svelte4 is typed against Svelte 4, where a component is still a class and
+  // `SvelteComponent` is generic. Checked against svelte@4, installed under the
+  // `svelte4` alias.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "skipLibCheck": false,
+    "paths": {
+      "swipe-pagination": ["./src/index.ts"],
+      "svelte": ["./node_modules/svelte4"]
+    }
+  },
+  "include": ["src/svelte4"],
+  "exclude": []
+}

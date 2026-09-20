@@ -1,8 +1,7 @@
 <script>
 	import SwipePagination from '../../src/svelte/SwipePagination.svelte';
 
-	export let page = 1;
-	export let total = 100;
+	let { page = $bindable(1), total = 100 } = $props();
 </script>
 
 <SwipePagination {total} bind:active={page} />

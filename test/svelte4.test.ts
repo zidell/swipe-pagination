@@ -1,13 +1,9 @@
-import { readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { cleanup, render } from '@testing-library/svelte';
 import { flushSync } from 'svelte';
-import { compile } from 'svelte/compiler';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import SwipePagination from '../src/svelte/SwipePagination.svelte';
-import * as entry from '../src/svelte/index.js';
-import BindHarness from './fixtures/BindHarness.svelte';
+import SwipePagination from '../src/svelte4/SwipePagination.svelte';
+import * as entry from '../src/svelte4/index.js';
+import BindHarness from './fixtures/BindHarnessLegacy.svelte';
 
 afterEach(cleanup);
 
@@ -18,24 +14,7 @@ const pages = (root: Element) =>
 
 type Exports = { getInstance(): { getActive(): number; getTotal(): number } | null };
 
-describe('Svelte 5 <SwipePagination>', () => {
-  it('compiles with runes forced on, as a runes-only app compiles its dependencies', () => {
-    // Not `new URL(path, import.meta.url)`: Vite rewrites that pattern into asset resolution.
-    const root = dirname(dirname(fileURLToPath(import.meta.url)));
-    const source = readFileSync(join(root, 'src/svelte/SwipePagination.svelte'), 'utf8');
-    expect(compile(source, { name: 'SwipePagination', runes: true }).warnings).toEqual([]);
-  });
-
-  it('tells a Svelte 4 or 3 app which entry to use instead', async () => {
-    vi.resetModules();
-    vi.doMock('svelte', async () => ({ ...(await vi.importActual<object>('svelte')), mount: undefined }));
-    await expect(import('../src/svelte/index.js')).rejects.toThrow(
-      "swipe-pagination/svelte needs Svelte 5. Import 'swipe-pagination/svelte4' on Svelte 4, or 'swipe-pagination/svelte3' on Svelte 3.",
-    );
-    vi.doUnmock('svelte');
-    vi.resetModules();
-  });
-
+describe('Svelte 4 (legacy) <SwipePagination>', () => {
   it('is exported as default and named from the entry', () => {
     expect(entry.default).toBe(SwipePagination);
     expect(entry.SwipePagination).toBe(SwipePagination);

@@ -1,0 +1,15 @@
+{
+  // src/svelte3 is typed against Svelte 3, whose `SvelteComponentTyped` no longer
+  // exists in the Svelte 5 that this repo installs. Check it against svelte@3,
+  // installed under the `svelte3` alias.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "skipLibCheck": false,
+    "paths": {
+      "swipe-pagination": ["./src/index.ts"],
+      "svelte": ["./node_modules/svelte3"]
+    }
+  },
+  "include": ["src/svelte3"],
+  "exclude": []
+}

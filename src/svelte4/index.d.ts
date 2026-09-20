@@ -1,4 +1,4 @@
-import type { Component } from 'svelte';
+import { SvelteComponent } from 'svelte';
 import type { SwipePagination as Core, SwipePaginationOptions } from 'swipe-pagination';
 
 export type { SwipePaginationOptions } from 'swipe-pagination';
@@ -9,7 +9,9 @@ export interface SwipePaginationProps extends SwipePaginationOptions {
   style?: string;
 }
 
-declare const SwipePagination: Component<SwipePaginationProps, { getInstance(): Core | null }, 'active'>;
+declare class SwipePagination extends SvelteComponent<SwipePaginationProps> {
+  getInstance(): Core | null;
+}
 
 export { SwipePagination };
 export default SwipePagination;

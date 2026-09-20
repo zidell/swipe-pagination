@@ -1,0 +1,12 @@
+{
+  // src/svelte is typed against the installed Svelte 5, where a runes component is
+  // a `Component<Props, Exports, Bindings>` function rather than a class. The main
+  // project has skipLibCheck on, which skips .d.ts files entirely, so these
+  // declarations only get checked here.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "skipLibCheck": false
+  },
+  "include": ["src/svelte"],
+  "exclude": []
+}
