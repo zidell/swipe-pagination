@@ -187,29 +187,6 @@ h3 {
   font-size: clamp(1.05rem, 2.4vw, 1.2rem);
 }
 
-.install {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  max-width: 100%;
-  padding: 6px 6px 6px 16px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--surface);
-  box-shadow: var(--shadow);
-}
-
-.install code {
-  background: none;
-  padding: 0;
-  font-size: 15px;
-}
-
-.install code::before {
-  content: '$ ';
-  color: var(--muted);
-}
-
 .copy {
   padding: 6px 12px;
   border: 0;
