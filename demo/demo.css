@@ -692,21 +692,10 @@ td:first-child {
   white-space: nowrap;
 }
 
-.how ol {
-  display: grid;
-  gap: 14px;
-  max-width: 760px;
-  padding-left: 1.2em;
-}
-
-.how li::marker {
-  font-weight: 700;
-}
-
 .aside {
   display: grid;
   gap: 4px;
-  margin: 24px 0 0;
+  margin: 16px 0 0;
   padding-left: 1.2em;
   color: var(--muted);
   font-size: 14px;
