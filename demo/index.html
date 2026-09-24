@@ -216,24 +216,6 @@
       <section class="wrap section" id="how">
         <h2 data-i18n="how.title">How it works</h2>
         <div class="how">
-          <ol>
-            <li data-i18n="how.1">
-              <strong>A native scroll area.</strong> The numbers sit on one wide, empty track inside a horizontally
-              scrolling box. Touch, trackpad and wheel scrolling come from the browser, momentum included.
-            </li>
-            <li data-i18n="how.2">
-              <strong>Width per digit count.</strong> On start, one number of each length (8, 88, 888 …) is measured.
-              Pages with the same digit count share one width.
-            </li>
-            <li data-i18n="how.3">
-              <strong>Position ⇄ page in O(digits).</strong> A page's left edge is the sum over digit tiers. Page 15 sits
-              at <code>9 × w₁ + 5 × w₂</code>. The inverse turns a scroll position back into a page.
-            </li>
-            <li data-i18n="how.4">
-              <strong>Render what's visible.</strong> On scroll, only the pages in view (plus a little overscan) are
-              rendered and recycled, absolutely positioned. With 1,000,000 pages there are still about 20 elements.
-            </li>
-          </ol>
           <ul class="aside">
             <li data-i18n="how.aside">
               Built on the ideas in “<a href="https://maxzidell.medium.com/c4252df8dca7">모바일을 위한 새로운 페이지네이션</a>”
