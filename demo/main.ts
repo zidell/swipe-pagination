@@ -122,21 +122,40 @@ for (const theme of THEMES) {
 
 // ---------------------------------------------------------------- hero
 
-const hero = new SwipePagination($('#hero'), {
-  total: 5000,
-  active: 1234,
-  labels,
-  onChange: () => updateHero(),
-});
-
-function updateHero() {
-  $('#hero-page').textContent = fmt(hero.getActive());
-  $('#hero-dom').textContent = String(domCount(hero));
-  const range = hero.getVisibleRange();
-  $('#hero-range').textContent = range ? `${fmt(range.start)}–${fmt(range.end)}` : '–';
+// Skeleton rows stand in for the page content above each pagination.
+for (const list of document.querySelectorAll<HTMLElement>('.skeleton')) {
+  for (let i = 0; i < Number(list.dataset.rows); i++) {
+    const row = document.createElement('div');
+    row.className = 'skeleton__row';
+    row.style.setProperty('--i', String(i));
+    row.innerHTML = `<span class="skeleton__thumb"></span><span class="skeleton__lines"><i style="width:${85 - ((i * 17) % 35)}%"></i><i style="width:${55 - ((i * 11) % 25)}%"></i></span>`;
+    list.append(row);
+  }
 }
-hero.root.addEventListener('scroll', () => requestAnimationFrame(updateHero), { capture: true, passive: true });
-updateHero();
+
+// Picking a page redraws the title and skeleton list from the top, as if the next page had loaded.
+function showHeroPage(page: number) {
+  $('#hero-page').textContent = tx(`Page ${page}`, `${page} 페이지`);
+}
+
+function replaySkeleton(page: number) {
+  showHeroPage(page);
+  const frame = $('.resize-frame');
+  frame.classList.remove('is-entering');
+  void frame.offsetWidth; // restart the animation
+  frame.classList.add('is-entering');
+}
+
+showHeroPage(123);
+new SwipePagination($('#hero'), { total: 500, active: 123, labels, onChange: replaySkeleton });
+
+// Desktop / Mobile switch narrows or widens the preview frame.
+for (const button of document.querySelectorAll<HTMLButtonElement>('[data-viewport]')) {
+  button.addEventListener('click', () => {
+    $('.resize-frame').classList.toggle('is-mobile', button.dataset.viewport === 'mobile');
+    for (const other of document.querySelectorAll('[data-viewport]')) other.setAttribute('aria-pressed', String(other === button));
+  });
+}
 
 // ---------------------------------------------------------------- playground
 
@@ -231,7 +250,7 @@ const USAGE: Record<string, string> = {
 import 'swipe-pagination/style.css';
 
 const pager = new SwipePagination(document.querySelector('#pager'), {
-  total: 5000,
+  total: 500,
   active: 1,
   onChange(page) {
     loadPage(page);
@@ -268,7 +287,7 @@ const pager = ref(); ${tx('// pager.value.getInstance()', '// pager.value.getIns
 </script>
 
 <template>
-  <SwipePagination ref="pager" :total="5000" v-model:active="page" @change="loadPage" />
+  <SwipePagination ref="pager" :total="500" v-model:active="page" @change="loadPage" />
 </template>`,
   Svelte: `<script>
   import { SwipePagination } from 'swipe-pagination/svelte'; ${tx("// Svelte 4/3: '/svelte4', '/svelte3'", "// Svelte 4/3은 '/svelte4', '/svelte3'")}
@@ -278,7 +297,7 @@ const pager = ref(); ${tx('// pager.value.getInstance()', '// pager.value.getIns
   let pager; ${tx('// pager.getInstance()', '// pager.getInstance()로 인스턴스 접근')}
 </script>
 
-<SwipePagination bind:this={pager} total={5000} bind:active={page} onChange={loadPage} />`,
+<SwipePagination bind:this={pager} total={500} bind:active={page} onChange={loadPage} />`,
   'Links (SSR / MPA)': `${tx('// Each page becomes a real <a href>, so crawlers and middle-click work.', '// 각 페이지가 실제 <a href>가 되어 검색엔진과 가운데 클릭이 동작합니다.')}
 new SwipePagination(el, {
   total: 120,
@@ -317,30 +336,35 @@ new SwipePagination(el, {
 });`,
 };
 
-const tabs = $('#usage-tabs');
-const tabList = document.createElement('div');
-tabList.className = 'tabs__list';
-tabList.setAttribute('role', 'tablist');
-const panel = document.createElement('div');
-panel.className = 'code';
-panel.innerHTML = `<button type="button" class="copy">${tx('Copy', '복사')}</button><pre><code></code></pre>`;
-tabs.append(tabList, panel);
+/** Tab bar over one code panel with a copy button; the first snippet starts selected. */
+function codeTabs(el: HTMLElement, snippets: Record<string, string>) {
+  const tabList = document.createElement('div');
+  tabList.className = 'tabs__list';
+  tabList.setAttribute('role', 'tablist');
+  const panel = document.createElement('div');
+  panel.className = 'code';
+  panel.innerHTML = `<button type="button" class="copy">${tx('Copy', '복사')}</button><pre><code></code></pre>`;
+  el.append(tabList, panel);
 
-function showTab(name: string) {
-  for (const tab of tabList.children) tab.setAttribute('aria-selected', String((tab as HTMLElement).dataset.tab === name));
-  panel.querySelector('code')!.textContent = USAGE[name];
-  panel.querySelector<HTMLElement>('.copy')!.dataset.copy = USAGE[name];
+  function showTab(name: string) {
+    for (const tab of tabList.children) tab.setAttribute('aria-selected', String((tab as HTMLElement).dataset.tab === name));
+    panel.querySelector('code')!.textContent = snippets[name];
+    panel.querySelector<HTMLElement>('.copy')!.dataset.copy = snippets[name];
+  }
+  for (const name of Object.keys(snippets)) {
+    const tab = document.createElement('button');
+    tab.type = 'button';
+    tab.setAttribute('role', 'tab');
+    tab.dataset.tab = name;
+    tab.textContent = name === 'Links (SSR / MPA)' ? tx(name, '링크 (SSR / MPA)') : name;
+    tab.addEventListener('click', () => showTab(name));
+    tabList.append(tab);
+  }
+  showTab(Object.keys(snippets)[0]);
 }
-for (const name of Object.keys(USAGE)) {
-  const tab = document.createElement('button');
-  tab.type = 'button';
-  tab.setAttribute('role', 'tab');
-  tab.dataset.tab = name;
-  tab.textContent = name === 'Links (SSR / MPA)' ? tx(name, '링크 (SSR / MPA)') : name;
-  tab.addEventListener('click', () => showTab(name));
-  tabList.append(tab);
-}
-showTab('Vanilla JS');
+
+codeTabs($('#usage-tabs'), USAGE);
+
 
 // ---------------------------------------------------------------- API tables
 
@@ -441,7 +465,7 @@ table('classes-table', [tx('Key', '키'), tx('Built-in class', '기본 클래스
   )],
 ]);
 
-// ---------------------------------------------------------------- copy buttons & dark mode
+// ---------------------------------------------------------------- copy buttons
 
 document.addEventListener('click', async (event) => {
   const button = (event.target as HTMLElement).closest<HTMLElement>('.copy');
@@ -453,13 +477,4 @@ document.addEventListener('click', async (event) => {
     button.textContent = tx('Press ⌘C', '⌘C를 누르세요');
   }
   setTimeout(() => (button.textContent = tx('Copy', '복사')), 1500);
-});
-
-$('#theme-toggle').addEventListener('click', () => {
-  const root = document.documentElement;
-  const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-  root.dataset.theme = dark ? 'light' : 'dark';
-  try {
-    localStorage.setItem('sp-demo-theme', root.dataset.theme);
-  } catch {}
 });
