@@ -14,27 +14,21 @@ export const tx = (en: string, ko: string) => (lang === 'ko' ? ko : en);
 
 /** Korean markup for elements marked `data-i18n` in index.html (English lives in the HTML itself). */
 const KO: Record<string, string> = {
-  'nav.playground': '플레이그라운드',
-  'nav.themes': '테마',
-  'nav.usage': '사용법',
   'hero.title': '<em>스와이프</em> 페이지네이션',
   'hero.lead':
     '모바일에 최적화된 반응형 페이지네이션입니다. 전통적인 페이지네이션의 문제인 직관성과 여러 번의 중복 클릭을 개선하여 사용자 경험을 향상시키기 위해 제작되었습니다.',
-  'hero.page': '<strong id="hero-page">1,234</strong> / 5,000 페이지',
-  'hero.dom': 'DOM 노드 <strong id="hero-dom">–</strong>개',
-  'hero.range': '<strong id="hero-range">–</strong> 표시 중',
-  'hero.hint':
-    '숫자를 스와이프하거나 끌어서 스크롤하고, 화살표를 눌러 보세요(빠르게 연타도 해 보세요). Tab으로 들어가 ← → Home End로도 움직일 수 있습니다.',
+  'hero.desktop': '데스크탑',
+  'hero.mobile': '모바일',
   'why.title': '만든 이유',
   'why.1.title': '원하는 페이지까지 한 번에',
   'why.1.body':
-    '기존 페이지네이션으로 1페이지에서 50페이지로 가려면 중간 페이지를 여러 번 거쳐야 하고, 그때마다 페이지가 새로 열립니다. 여기서는 50페이지까지 스와이프해서 한 번만 누르면 됩니다.',
+    '사용법이 헷갈리지 않으며 원하는 페이지까지 한 번에 갈 수 있습니다.',
   'why.2.title': '모바일 반응형',
   'why.2.body':
-    '페이지가 수천 개를 넘어가면 버튼이 넓어져서 모바일에서는 여러 줄로 쪼개집니다. 모든 페이지가 하나의 스크롤 영역 안에 있어서 320px에서도 한 줄을 유지합니다. 폭이 넓어지면 페이지가 더 많이 보일 뿐입니다.',
+    '넓은 데스크탑과 좁은 모바일에서도 디자인이 깨지지 않고 반응형으로 표시됩니다.',
   'why.3.title': '무한 페이지 표시',
   'why.3.body':
-    '버튼 5,000개를 한꺼번에 그리면 화면이 멈춥니다. 화면에 보이는 번호만 그리고, 각 번호는 자릿수만큼의 폭만 차지해서 낭비되는 공간이 없습니다.',
+    '페이지가 아무리 많아도 성능저하 없이 Virtual DOM 방식으로 렌더링합니다.',
   'pg.title': '플레이그라운드',
   'pg.lead': '상자 오른쪽 아래 모서리를 끌어 폭을 바꿔 보세요. 모든 컨트롤은 옵션이나 메서드에 그대로 대응합니다.',
   'pg.dom': 'DOM 노드',
