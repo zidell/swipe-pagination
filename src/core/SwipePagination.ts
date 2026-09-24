@@ -358,13 +358,15 @@ export class SwipePagination {
       }
       widths.push(Math.ceil(width));
     }
+    // A custom property reads back as written ("0.25rem", "calc(...)"); routing it through a real length resolves it to px.
+    probe.style.marginLeft = 'var(--sp-gap, 0px)';
+    const gap = parseFloat(getComputedStyle(probe).marginLeft) || 0;
     probe.remove();
 
     if (!(widths[0] > 0)) {
       this.layout = null;
       return;
     }
-    const gap = parseFloat(getComputedStyle(this.root).getPropertyValue('--sp-gap')) || 0;
     this.layout = createLayout(this.total, widths, gap);
     this.contentWidth = this.layout.contentWidth + this.sideMargin * 2;
     this.trackWidth = Math.min(this.contentWidth, SwipePagination.maxTrackWidth);

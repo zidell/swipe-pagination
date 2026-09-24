@@ -124,16 +124,21 @@ describe('construction', () => {
     expect(prev.disabled && next.disabled).toBe(true);
   });
 
-  it('reads the item gap from the --sp-gap custom property', () => {
-    const style = document.createElement('style');
-    style.textContent = '.swipe-pagination { --sp-gap: 4px; }';
-    document.head.append(style);
+  it('reads the item gap from --sp-gap as resolved by the browser', () => {
+    // A browser resolves `var(--sp-gap)` (rem, calc, negatives) to px in computed lengths; jsdom does not, so fake that step.
+    const real = window.getComputedStyle;
+    const spy = vi.spyOn(window, 'getComputedStyle').mockImplementation((el, pseudo) => {
+      const style = real(el, pseudo);
+      if (!(el as HTMLElement).style?.marginLeft.includes('--sp-gap')) return style;
+      return new Proxy(style, { get: (target, key) => (key === 'marginLeft' ? '4px' : Reflect.get(target, key)) });
+    });
     try {
       const { track, item } = setup({ total: 12 });
       expect(item(2)?.style.left).toBe(`${8 + 26}px`);
       expect(track.style.width).toBe(`${8 + 9 * 26 + 2 * 34 + 30 + 8}px`);
+      expect(item(2)?.style.marginLeft).toBe('');
     } finally {
-      style.remove();
+      spy.mockRestore();
     }
   });
 
