@@ -47,7 +47,7 @@ const KO: Record<string, string> = {
   'api.classes': '클래스 이름',
   'api.classes.lead':
     '기본 클래스는 항상 붙어 있습니다. <code>classNames</code>에 넣은 문자열은 그 뒤에 덧붙기 때문에, 스타일을 더할 뿐 레이아웃을 대체하지 않습니다.',
-  'how.title': '동작 원리',
+  'how.title': '기타',
   'how.aside':
     '“<a href="https://maxzidell.medium.com/c4252df8dca7">모바일을 위한 새로운 페이지네이션</a>”에서의 구상을 토대로 구현',
   'how.production': '<a href="https://videostew.com">비디오스튜(videostew.com)</a>에서 실사용하며 검증함',
